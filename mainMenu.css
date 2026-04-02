@@ -12,21 +12,54 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	gap: 1rem;
-	padding: 2rem 2.5rem;
+	justify-content: center;
+	gap: 1.75rem;
+	width: min(820px, 94vw);
+	min-height: 500px;
+	padding: 2.5rem 3rem;
 	background: rgba(255, 255, 255, 0.12);
 	border: 1px solid rgba(255, 255, 255, 0.3);
 	border-radius: 14px;
 	backdrop-filter: blur(4px);
 }
 
-#id-btn-play {
-	padding: 0.75rem 1.5rem;
+#id-div-main-menu h1 {
+	margin: 0;
+	font-size: clamp(2.5rem, 6vw, 4rem);
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	color: #f4fbff;
+	text-shadow: 0 4px 20px rgba(12, 63, 116, 0.35);
+}
+
+.class-btn-main-menu {
+	width: 300px;
+	height: 70px;
 	border: none;
 	border-radius: 10px;
-	font-size: 1rem;
+	font-size: 1.35rem;
 	font-weight: 600;
 	color: #0c3f74;
 	background: #e7f3ff;
 	cursor: pointer;
+	box-shadow: 0 8px 18px rgba(12, 63, 116, 0.2);
+	transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease,
+		color 160ms ease;
+}
+
+.class-btn-main-menu:hover {
+	transform: translateY(-3px);
+	background: #ffffff;
+	color: #083058;
+	box-shadow: 0 14px 24px rgba(12, 63, 116, 0.28);
+}
+
+.class-btn-main-menu:active {
+	transform: translateY(-1px);
+	box-shadow: 0 8px 16px rgba(12, 63, 116, 0.24);
+}
+
+.class-btn-main-menu:focus-visible {
+	outline: 3px solid rgba(8, 48, 88, 0.45);
+	outline-offset: 3px;
 }

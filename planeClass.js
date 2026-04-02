@@ -16,11 +16,45 @@ class Plane extends Vehicle {
                 if (i + 3 >= grid.length || j - 2 < 0 || j + 2 >= grid[0].length) {
                     return false;
                 }
+
+                if (grid[i][j] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = j - 2; k <= j + 2; k++) {
+                    if (grid[i + 1][k] !== GridParts.EMPTY) {
+                        return false;
+                    }
+                }
+                if (grid[i + 2][j] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = j - 1; k <= j + 1; k++) {
+                    if (grid[i + 3][k] !== GridParts.EMPTY) {
+                        return false;
+                    }
+                }
                 break;
 
             case Direction.EAST:
                 if (j - 3 < 0 || i - 2 < 0 || i + 2 >= grid.length) {
                     return false;
+                }
+
+                if (grid[i][j] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = i - 2; k <= i + 2; k++) {
+                    if (grid[k][j - 1] !== GridParts.EMPTY) {
+                        return false;
+                    }
+                }
+                if (grid[i][j - 2] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = i - 1; k <= i + 1; k++) {
+                    if (grid[k][j - 3] !== GridParts.EMPTY) {
+                        return false;
+                    }
                 }
                 break;
 
@@ -28,11 +62,45 @@ class Plane extends Vehicle {
                 if (i - 3 < 0 || j - 2 < 0 || j + 2 >= grid[0].length) {
                     return false;
                 }
+
+                if (grid[i][j] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = j - 2; k <= j + 2; k++) {
+                    if (grid[i - 1][k] !== GridParts.EMPTY) {
+                        return false;
+                    }
+                }
+                if (grid[i - 2][j] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = j - 1; k <= j + 1; k++) {
+                    if (grid[i - 3][k] !== GridParts.EMPTY) {
+                        return false;
+                    }
+                }
                 break;
 
             case Direction.WEST:
                 if (j + 3 >= grid[0].length || i - 2 < 0 || i + 2 >= grid.length) {
                     return false;
+                }
+
+                if (grid[i][j] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = i - 2; k <= i + 2; k++) {
+                    if (grid[k][j + 1] !== GridParts.EMPTY) {
+                        return false;
+                    }
+                }
+                if (grid[i][j + 2] !== GridParts.EMPTY) {
+                    return false;
+                }
+                for (let k = i - 1; k <= i + 1; k++) {
+                    if (grid[k][j + 3] !== GridParts.EMPTY) {
+                        return false;
+                    }
                 }
                 break;
 
@@ -55,61 +123,55 @@ class Plane extends Vehicle {
             return false;
         }
 
-        const cellsToFill = [[i, j, 2]];
-
         switch (dir) {
+
             case Direction.NORTH:
                 for (let k = j - 2; k <= j + 2; k++) {
-                    cellsToFill.push([i + 1, k, 1]);
+                    grid[i + 1][k] = GridParts.BODY;
                 }
-                cellsToFill.push([i + 2, j, 1]);
+                grid[i + 2][j] = GridParts.BODY;
                 for (let k = j - 1; k <= j + 1; k++) {
-                    cellsToFill.push([i + 3, k, 1]);
+                    grid[i + 3][k] = GridParts.BODY;
                 }
+                grid[i][j] = GridParts.HEAD;
                 break;
 
             case Direction.EAST:
                 for (let k = i - 2; k <= i + 2; k++) {
-                    cellsToFill.push([k, j - 1, 1]);
+                    grid[k][j - 1] = GridParts.BODY;
                 }
-                cellsToFill.push([i, j - 2, 1]);
+                grid[i][j - 2] = GridParts.BODY;
                 for (let k = i - 1; k <= i + 1; k++) {
-                    cellsToFill.push([k, j - 3, 1]);
+                    grid[k][j - 3] = GridParts.BODY;
                 }
+                grid[i][j] = GridParts.HEAD;
                 break;
 
             case Direction.SOUTH:
                 for (let k = j - 2; k <= j + 2; k++) {
-                    cellsToFill.push([i - 1, k, 1]);
+                    grid[i - 1][k] = GridParts.BODY;
                 }
-                cellsToFill.push([i - 2, j, 1]);
+                grid[i - 2][j] = GridParts.BODY;
                 for (let k = j - 1; k <= j + 1; k++) {
-                    cellsToFill.push([i - 3, k, 1]);
+                    grid[i - 3][k] = GridParts.BODY;
                 }
+                grid[i][j] = GridParts.HEAD;
                 break;
 
             case Direction.WEST:
                 for (let k = i - 2; k <= i + 2; k++) {
-                    cellsToFill.push([k, j + 1, 1]);
+                    grid[k][j + 1] = GridParts.BODY;
                 }
-                cellsToFill.push([i, j + 2, 1]);
+                grid[i][j + 2] = GridParts.BODY;
                 for (let k = i - 1; k <= i + 1; k++) {
-                    cellsToFill.push([k, j + 3, 1]);
+                    grid[k][j + 3] = GridParts.BODY;
                 }
+                grid[i][j] = GridParts.HEAD;
                 break;
 
             default:
                 throw new Error("Invalid direction value.");
-        }
-
-        for (const [row, col] of cellsToFill) {
-            if (grid[row][col] !== 0) {
-                return false;
-            }
-        }
-
-        for (const [row, col, value] of cellsToFill) {
-            grid[row][col] = value;
+                
         }
 
         return true;

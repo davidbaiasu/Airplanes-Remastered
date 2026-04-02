@@ -18,4 +18,8 @@ class Vehicle {
         this.direction = direction;
     }
 
+    rotateVehicle() {
+        this.direction = (this.direction + 1) % 4;
+    }
+
 }
