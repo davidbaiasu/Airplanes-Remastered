@@ -9,14 +9,18 @@
 	<body>
 		<div id="id-div-main-menu">
             <h1>Airplanes</h1>
-			<button type="button" id="id-btn-join" class="class-btn-main-menu">Join</button>
-            <button type="button" id="id-btn-create" class="class-btn-main-menu">Create</button>
-			<p id="id-p-players-online" class="class-p-players-online">Players online: 0</p>
+            <button type="button" id="id-btn-create">Create Room</button>
+			<div id="id-div-join-group">
+				<button type="button" id="id-btn-join">Join Room</button>
+				<input type="text" id="id-input-room-code" placeholder="Code" maxlength="4" pattern="[A-Z]{4}" inputmode="text" style="text-transform: uppercase;" />
+			</div>
+			<p id="id-p-players-online">Players online: 0</p>
 		</div>
 		<script src="frozenConstants.js"></script>
 		<script src="vehicleClass.js"></script>
 		<script src="planeClass.js"></script>
-        
+		<script src="roomClass.js"></script>
+
 		<script src="/socket.io/socket.io.js"></script>
 		<script src="onlinePlayers.js"></script>
 	</body>

@@ -18,6 +18,15 @@ class Vehicle {
         this.direction = direction;
     }
 
+    changeAttributes(headX, headY, direction) {
+        if (!Object.values(Direction).includes(direction)) {
+            throw new Error("Invalid direction value.");
+        }
+        this.headX = headX;
+        this.headY = headY;
+        this.direction = direction;
+    }
+
     rotateVehicle() {
         this.direction = (this.direction + 1) % 4;
     }
