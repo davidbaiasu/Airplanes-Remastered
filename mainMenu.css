@@ -63,3 +63,11 @@ body {
 	outline: 3px solid rgba(8, 48, 88, 0.45);
 	outline-offset: 3px;
 }
+
+.class-p-players-online {
+	margin: 0.25rem 0 0;
+	font-size: 1.1rem;
+	font-weight: 700;
+	color: #e9f6ff;
+	letter-spacing: 0.02em;
+}
