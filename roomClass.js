@@ -1,7 +1,9 @@
 class Room {
 
     roomId = null;
-    peopleInside  = 0;
+    peopleInside = 0;
+    myGrid = Array.from({ length: 11 }, () => Array(11).fill(0));
+    opponentGrid = Array.from({ length: 11 }, () => Array(11).fill(0));
 
     constructor(roomId = Room.generateRandomCode()) {
         if (!Room.isValidRoomId(roomId)) {
@@ -26,7 +28,7 @@ class Room {
     }
 
     toLobbyUrl() {
-        return `gameLobby.html?room=${encodeURIComponent(this.roomId)}`;
+        return `roomLobby.html?room=${encodeURIComponent(this.roomId)}`;
     }
 
 }

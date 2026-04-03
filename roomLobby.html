@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Airplanes Lobby</title>
+		<link rel="stylesheet" href="mainMenu.css" />
+		<link rel="stylesheet" href="roomLobby.css" />
+	</head>
+	<body>
+		<div id="id-div-game-lobby">
+			<h1 id="id-h1-lobby-title">Room #----</h1>
+			<p id="id-p-lobby-status">Waiting for second player...</p>
+			<div id="id-div-lobby-actions">
+				<button type="button" id="id-btn-back" class="class-lobby-btn">Back</button>
+				<button type="button" id="id-btn-start" class="class-lobby-btn">Start</button>
+			</div>
+		</div>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="roomLobby.js"></script>
+	</body>
+</html>

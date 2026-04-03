@@ -3,7 +3,7 @@ class Plane extends Vehicle {
     constructor(headX, headY, direction) {
         super(headX, headY, direction);
     }
-
+    
     attemptPlacement(grid) {
 
         const i = this.headX;
@@ -13,7 +13,7 @@ class Plane extends Vehicle {
         switch (dir) {
 
             case Direction.NORTH:
-                if (i + 3 >= grid.length || j - 2 < 0 || j + 2 >= grid[0].length) {
+                if (i + 3 >= grid.length || j - 2 < 1 || j + 2 >= grid[0].length) {
                     return false;
                 }
 
@@ -36,7 +36,7 @@ class Plane extends Vehicle {
                 break;
 
             case Direction.EAST:
-                if (j - 3 < 0 || i - 2 < 0 || i + 2 >= grid.length) {
+                if (j - 3 < 1 || i - 2 < 1 || i + 2 >= grid.length || j >= grid[0].length) {
                     return false;
                 }
 
@@ -59,7 +59,7 @@ class Plane extends Vehicle {
                 break;
 
             case Direction.SOUTH:
-                if (i - 3 < 0 || j - 2 < 0 || j + 2 >= grid[0].length) {
+                if (i - 3 < 1 || j - 2 < 1 || j + 2 >= grid[0].length) {
                     return false;
                 }
 
@@ -82,7 +82,7 @@ class Plane extends Vehicle {
                 break;
 
             case Direction.WEST:
-                if (j + 3 >= grid[0].length || i - 2 < 0 || i + 2 >= grid.length) {
+                if (j + 3 >= grid[0].length || i - 2 < 1 || i + 2 >= grid.length) {
                     return false;
                 }
 
@@ -175,6 +175,65 @@ class Plane extends Vehicle {
         }
 
         return true;
+
+    }
+
+    removeFromGrid(grid) {
+
+        const i = this.headX;
+        const j = this.headY;
+        const dir = this.direction;
+
+        switch (dir) {
+
+            case Direction.NORTH:
+                for (let k = j - 2; k <= j + 2; k++) {
+                    grid[i + 1][k] = GridParts.EMPTY;
+                }
+                grid[i + 2][j] = GridParts.EMPTY;
+                for (let k = j - 1; k <= j + 1; k++) {
+                    grid[i + 3][k] = GridParts.EMPTY;
+                }
+                grid[i][j] = GridParts.EMPTY;
+                break;
+
+            case Direction.EAST:
+                for (let k = i - 2; k <= i + 2; k++) {
+                    grid[k][j - 1] = GridParts.EMPTY;
+                }
+                grid[i][j - 2] = GridParts.EMPTY;
+                for (let k = i - 1; k <= i + 1; k++) {
+                    grid[k][j - 3] = GridParts.EMPTY;
+                }
+                grid[i][j] = GridParts.EMPTY;
+                break;
+
+            case Direction.SOUTH:
+                for (let k = j - 2; k <= j + 2; k++) {
+                    grid[i - 1][k] = GridParts.EMPTY;
+                }
+                grid[i - 2][j] = GridParts.EMPTY;
+                for (let k = j - 1; k <= j + 1; k++) {
+                    grid[i - 3][k] = GridParts.EMPTY;
+                }
+                grid[i][j] = GridParts.EMPTY;
+                break;
+
+            case Direction.WEST:
+                for (let k = i - 2; k <= i + 2; k++) {
+                    grid[k][j + 1] = GridParts.EMPTY;
+                }
+                grid[i][j + 2] = GridParts.EMPTY;
+                for (let k = i - 1; k <= i + 1; k++) {
+                    grid[k][j + 3] = GridParts.EMPTY;
+                }
+                grid[i][j] = GridParts.EMPTY;
+                break;
+
+            default:
+                throw new Error("Invalid direction value.");
+
+        }
 
     }
 

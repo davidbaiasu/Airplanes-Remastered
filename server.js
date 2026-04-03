@@ -1,4 +1,5 @@
 const path = require("path");
+const os = require("os");
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -10,6 +11,23 @@ const io = new Server(server);
 const PORT = process.env.PORT || 3000;
 let playersOnline = 0;
 const rooms = new Map(); // roomId -> player count
+
+function getLanIpv4Addresses() {
+    const interfaces = os.networkInterfaces();
+    const addresses = [];
+
+    for (const networkDetails of Object.values(interfaces)) {
+        if (!networkDetails) continue;
+
+        for (const detail of networkDetails) {
+            if (detail.family === "IPv4" && !detail.internal) {
+                addresses.push(detail.address);
+            }
+        }
+    }
+
+    return [...new Set(addresses)];
+}
 
 app.use(express.static(path.join(__dirname)));
 
@@ -43,6 +61,10 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("start-game", (roomId) => {
+        io.to(roomId).emit("game-started");
+    });
+
     socket.on("disconnect", () => {
         playersOnline = Math.max(0, playersOnline - 1);
         io.emit("players-online", playersOnline);
@@ -60,4 +82,14 @@ io.on("connection", (socket) => {
 
 server.listen(PORT, "0.0.0.0", () => {
     console.log(`Airplanes LAN server running at http://localhost:${PORT}`);
+
+    const lanAddresses = getLanIpv4Addresses();
+    if (lanAddresses.length > 0) {
+        console.log("Open one of these links on other laptops in the same Wi-Fi:");
+        for (const ipAddress of lanAddresses) {
+            console.log(`- http://${ipAddress}:${PORT}`);
+        }
+    } else {
+        console.log("No LAN IPv4 address detected. Other devices may not be able to connect.");
+    }
 });
